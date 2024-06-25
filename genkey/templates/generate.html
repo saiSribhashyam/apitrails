@@ -6,8 +6,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
     <title>Document</title>
     <style>
-           /* General styles */
-           body {
+        /* General styles */
+        body {
             margin: 0;
             padding: 0;
             font-family: Arial, sans-serif;
@@ -19,7 +19,6 @@
 
         /* Navbar styles */
         nav {
-            
             background-color: green;
             color: white;
             display: flex;
@@ -33,14 +32,14 @@
         .logo {
             font-size: 1.5rem;
             font-family: Impact, Charcoal, sans-serif;
-font-size: 34px;
-letter-spacing: 2.4px;
-word-spacing: -3.2px;
-color: white;
-text-decoration: none;
-font-style: normal;
-font-variant: normal;
-text-transform: none;
+            font-size: 34px;
+            letter-spacing: 2.4px;
+            word-spacing: -3.2px;
+            color: white;
+            text-decoration: none;
+            font-style: normal;
+            font-variant: normal;
+            text-transform: none;
         }
 
         ul {
@@ -127,7 +126,7 @@ text-transform: none;
             margin-bottom: 20px;
         }
 
-        input[type="text"] {
+        input[type="email"] {
             padding: 10px;
             width: 80%;
             margin-bottom: 10px;
@@ -169,43 +168,39 @@ text-transform: none;
         }
 
         .info {
-    margin-top: 20px;
-    padding: 60px;
+            margin-top: 20px;
+            padding: 60px;
             background-color: #fff;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             width: 80%;
             max-width: 600px;
-            
+        }
 
-}
+        .info h2 {
+            margin-bottom: 10px;
+        }
 
-.info h2 {
-    margin-bottom: 10px;
-}
+        .info p {
+            margin-bottom: 20px;
+        }
 
-.info p {
-    margin-bottom: 20px;
-}
+        .info ul {
+            list-style: none;
+            padding: 0;
+        }
 
-.info ul {
-    list-style: none;
-    padding: 0;
-}
+        .info ul li {
+            margin-bottom: 10px;
+        }
 
-.info ul li {
-    margin-bottom: 10px;
-}
+        .info ul li strong {
+            font-weight: bold;
+        }
 
-.info ul li strong {
-    font-weight: bold;
-}
-.info a button{
-    margin-top: 20px;
-}
-
-
-    
+        .info a button {
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
@@ -220,15 +215,56 @@ text-transform: none;
             <li><a class="active" href="/api-docs">API Documentation</a></li>
             <li><a class="active" href="#">Github</a></li>
             <li><a class="active" href="/genkey">Generate API Key</a></li>
-           
         </ul>
     </nav>
     <div class="container">
         <h1>Message Fraud Checker API</h1>
-        <form action="/genkey" method="post">
-            <input type="text" name="email" placeholder="Enter your Email" required>
-            <button type="submit" name="submit">Generate Key</button>
+        <form id="generate-key-form">
+            {% csrf_token %}
+            <input type="email" name="email" placeholder="Enter your Email" required>
+            <button type="button" id="generate-key-button">Generate Key</button>
+            <!-- <p class="result">Your API Key: <span id="api-key"></span></p> -->
+             
         </form>
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#generate-key-button').click(function() {
+                var email = $('input[name="email"]').val();
+
+            
+              // Validate email format using a regular expression
+              var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailPattern.test(email)) {
+                    alert("Please enter a valid email address.");
+                    return;
+                }        
+
+
+                $.ajax({
+                    url: '/genekey',
+                    type: 'POST',
+                    data: {
+                        'email': email,
+                        'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val()
+                    },
+                    success: function(data) {
+                        $('#api-key').text(data.apiKey);
+                    },
+                    error: function(xhr, status, error) {
+                        if (xhr.status === 400) {
+                            var response = JSON.parse(xhr.responseText);
+                            alert(response.message);
+                        } else {
+                            console.error("Error generating key:", error);
+                            alert("Error generating API key. Please try again later.");
+                        }
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>

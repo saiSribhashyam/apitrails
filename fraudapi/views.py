@@ -1,12 +1,13 @@
 from django.shortcuts import render
 import requests
 
+
 # Create your views here.
 def index(req):
     return render(req, "index.html")
 
 def fraud(req):
-    message = req.GET.get("message")
+    message = req.POST.get("message")
     if message:
         params = get_fraudResults(message=message)
         params['message'] = message

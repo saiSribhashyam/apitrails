@@ -17,6 +17,10 @@ def save(self, *args, **kwargs):
 def __str__(self):
         return f'{self.username} - {self.api_key}'
 
+
+
+
+
 class Meta:
         verbose_name = "API Document"
         verbose_name_plural = "API Documents"
