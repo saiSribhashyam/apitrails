@@ -6,6 +6,7 @@ from django.utils import timezone
 from datetime import timedelta
 from django.conf import settings
 from django.core.mail import send_mail
+import requests
 
 def generate(req):
     return render(req, 'generate.html')
@@ -35,13 +36,54 @@ def genekey(req):
         
         # Save the new API key in the database
         ins = APIDoc(username=email, api_key=apiKey)
-        ins.save()
+        
         subject="MadCoder's Fraud API Key"
-        mes=f'Hi Developer, thanks for choosing Madcoder`s api your API key \n Key : {apiKey}'
+        mes=f'Hi Developer, thanks for choosing Madcoder`s api your API key \nKey : {apiKey}'
         fromm=settings.EMAIL_HOST_USER
         recipient = [email,]
         send_mail(subject,mes,fromm,recipient)
+        ins.save()
         
         return JsonResponse({"apiKey": apiKey, "message": "Success"})
     
+    return JsonResponse({"message": "Invalid request method"}, status=405)
+
+def check_api_key(req, api_key):
+    if req.method == 'GET':
+        try:
+            api_doc = APIDoc.objects.get(api_key=api_key, is_active=True)
+        except APIDoc.DoesNotExist:
+            return JsonResponse({'message': 'Invalid or inactive API key'}, status=403)
+
+        message = req.GET.get('message', '')
+        if not message:
+            return JsonResponse({'message': 'No message provided'}, status=400)
+
+        # Call the closed-source service
+        response = requests.get(
+            'http://127.0.0.1:5000/',
+            params={'message': message}
+        )
+
+        if response.status_code == 200:
+            data = response.json()
+            result = {
+                'error': data.get('error', ''),
+                'message': data.get('message', ''),
+                'predict': data.get('predict', ''),
+                'predict_proba': data.get('predict_proba', [])
+            }
+        else:
+            result = {
+                'error': 'Failed to get prediction from the service',
+                'message': message,
+                'predict': '',
+                'predict_proba': []
+            }
+
+        api_doc.request_count += 1
+        api_doc.save()
+
+        return JsonResponse(result)
+
     return JsonResponse({"message": "Invalid request method"}, status=405)

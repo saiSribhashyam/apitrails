@@ -21,4 +21,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('fraudapi.urls')),
     path('',include('genkey.urls')),
+    # path('',include('apilogic.urls')),
 ]
