@@ -20,7 +20,7 @@ def test(req):
     return render(req, "test.html", params)
 
 def get_fraudResults(message):
-    api_url = f"http://127.0.0.1:5000/?message={message}"
+    api_url = f"https://mcfraud.onrender.com/?message={message}"
     response = requests.get(api_url)
     data = response.json()
     return data

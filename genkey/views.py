@@ -61,7 +61,7 @@ def check_api_key(req, api_key):
 
         # Call the closed-source service
         response = requests.get(
-            'http://127.0.0.1:5000/',
+            'https://mcfraud.onrender.com/',
             params={'message': message}
         )
 
