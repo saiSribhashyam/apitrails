@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/x-icon" href="https://sdk.bitmoji.com/render/panel/10219350-99930594646_21-s5-v1.png?transparent=1&palette=1&scale=2">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
-    <title>Document</title>
+    <title>MC FraudApi | Generate</title>
     <style>
         /* General styles */
         body {
@@ -214,8 +214,9 @@
         <ul>
             <li><a class="active" href="/">Home</a></li>
             <li><a class="active" href="/api-docs">API Documentation</a></li>
-            <li><a class="active" href="#">Github</a></li>
+            <li><a class="active" href="https://github.com/saiSribhashyam" target="_blank">Github</a></li>
             <li><a class="active" href="/genkey">Generate API Key</a></li>
+            <li><a class="active" href="/about">About</a></li>
         </ul>
     </nav>
     <div class="container">
@@ -229,6 +230,8 @@
              
         </form>
     </div>
+
+    
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
@@ -254,6 +257,7 @@
                     },
                     success: function(data) {
                         $('#api-key').text(data.apiKey);
+                        alert("Api Key Sent to "+email);
                     },
                     error: function(xhr, status, error) {
                         if (xhr.status === 400) {
@@ -268,5 +272,8 @@
             });
         });
     </script>
+    <footer>
+        &copy; 2024 Message Fraud Checker. All rights reserved.
+    </footer>
 </body>
 </html>

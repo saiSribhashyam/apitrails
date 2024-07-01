@@ -27,3 +27,7 @@ def get_fraudResults(message):
 
 def docs(req):
     return render(req,"documentation.html")
+
+
+def about(req):
+    return render(req,"about.html")

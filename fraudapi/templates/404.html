@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/x-icon" href="https://sdk.bitmoji.com/render/panel/10219350-99930594646_21-s5-v1.png?transparent=1&palette=1&scale=2">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
-    <title>MC FraudApi | API DOC</title>
+    <link rel="icon" type="image/x-icon" href="https://sdk.bitmoji.com/render/panel/10219350-99930594646_21-s5-v1.png?transparent=1&palette=1&scale=2">
+    <title>MC FraudApi | 404 Not Found</title>
     <style>
         /* General styles */
         body {
@@ -192,6 +192,48 @@
         .nav-link {
             color: white;
         }
+
+        .message {
+            margin-top: 20px;
+            font-size: 8vw; /* Use viewport width units for responsiveness */
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            text-align: center;
+        }
+
+        .image {
+            width: 50%;
+            height: auto;
+            margin-bottom: 20px;
+        }
+
+        @media (min-width: 768px) {
+            .message {
+                font-size: 6vw; /* Adjust font size for medium screens */
+            }
+
+            .image {
+                width: 40%;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .message {
+                font-size: 4vw; /* Adjust font size for large screens */
+            }
+
+            .image {
+                width: 30%;
+            }
+        }
+
+        .content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: calc(100vh - 60px); /* Adjust height to account for the navbar */
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -209,94 +251,38 @@
             <li><a class="nav-link" href="/about">About</a></li>
         </ul>
     </nav>
-    <div class="container">
-        <h1>MC FraudAPI Documentation</h1>
-        <div class="info">
-            <h2>How to Get an API Key</h2>
-            <p>To get an API key, follow these steps:</p>
-            <ul>
-                <li>Go to the <a style="color: rgb(4, 131, 4);" href="/genkey">Generate API Key</a> page. => </li>
-                <li>Enter your email address and click on the "Generate Key" button.=> </li>
-                <li>Your API key will be sent to your email. => </li>
-            </ul>
-            <!-- <img src="path/to/screenshot.png" alt="Generate API Key Screenshot" class="screenshot"> -->
-        </div>
-        <div class="info">
-            <h2>How to Use the API</h2>
-            <p>Use the following endpoint to check a message:</p>
-            <code>GET http://localhost:8000/api/v1/{apiKey}/check?message={your_message}</code>
-            <h3>Example Request</h3>
-            <code>GET http://localhost:8000/api/v1/YOUR_API_KEY/check?message=Congratulations!%20You%27ve%20won%20a%20free%20vacation.%20Claim%20now%20by%20providing%20your%20personal%20details.</code>
-            <h3>Response</h3>
-            <code>
-                {
-                    "error": "",
-                    "message": "\"Congratulations! You've won a free vacation. Claim now by providing your personal details.\"",
-                    "predict": "spam",
-                    "predict_proba": [
-                        [
-                            1.3081909946865977e-05,
-                            0.9999869180900531
-                        ]
-                    ]
-                }
-            </code>
-            <!-- <img src="path/to/screenshot.png" alt="API Response Screenshot" class="screenshot"> -->
-        </div>
-        <div class="info">
-            <h2>Code for Connecting to the API</h2>
-            <p>Below are examples of how to connect to the API using different programming languages:</p>
-            <h3>JavaScript</h3>
-            <code>
-                <pre><code>fetch('http://localhost:8000/api/v1/YOUR_API_KEY/check?message=YOUR_MESSAGE')
-    .then(response => response.json())
-    .then(data => console.log(data))
-    .catch(error => console.error('Error:', error));</code></pre>
-            </code>
-            <h3>Python</h3>
-            <code>
-                <pre><code>import requests
-
-response = requests.get(
-    'http://localhost:8000/api/v1/YOUR_API_KEY/check',
-    params={'message': 'YOUR_MESSAGE'}
-)
-print(response.json())</code></pre>
-            </code>
-            <h3>Java</h3>
-            <code>
-                <pre><code>import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.Scanner;
-
-public class APICall {
-    public static void main(String[] args) throws IOException {
-        String apiKey = "YOUR_API_KEY";
-        String message = "YOUR_MESSAGE";
-        URL url = new URL("http://localhost:8000/api/v1/" + apiKey + "/check?message=" + message);
-        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-        conn.setRequestMethod("GET");
-
-        int responseCode = conn.getResponseCode();
-        if (responseCode == 200) {
-            Scanner sc = new Scanner(url.openStream());
-            String inline = "";
-            while (sc.hasNext()) {
-                inline += sc.nextLine();
-            }
-            System.out.println(inline);
-            sc.close();
-        } else {
-            System.out.println("Error in API Call");
-        }
-    }
-}</code></pre>
-            </code>
-        </div>
+    <div id="content" class="content">
+        <div class="message"></div>
+        <img class="image" src="" alt="404 Image">
+        <p>Still something is wrong! <a href="#" onclick="heh()">Click here to send report</a></p>
     </div>
-    <footer>
-        &copy; 2024 MadCoder. All rights reserved.
-    </footer>
+    <script>
+function heh(){
+    alert("Report Sent!")
+}
+
+        const messages = [
+            "Oops! You hit a 404.",
+            "Page not found. Try another URL.",
+            "Well, this is awkward...",
+            "Are you lost? This page is.",
+            "404! This is a sign you should take a break."
+        ];
+
+        const images = [
+            'https://error404.fun/img/full-preview/1x/13.png',
+            'https://error404.fun/img/full-preview/1x/7.png',
+            'https://error404.fun/img/full-preview/1x/10.png',
+            'https://error404.fun/img/full-preview/1x/9.png',
+            'https://error404.fun/img/full-preview/1x/15.png',
+        ];
+
+        function getRandomElement(arr) {
+            return arr[Math.floor(Math.random() * arr.length)];
+        }
+
+        document.querySelector('.message').innerText = getRandomElement(messages);
+        document.querySelector('.image').src = getRandomElement(images);
+    </script>
 </body>
 </html>
