@@ -224,9 +224,9 @@
         <div class="info">
             <h2>How to Use the API</h2>
             <p>Use the following endpoint to check a message:</p>
-            <code>GET http://localhost:8000/api/v1/{apiKey}/check?message={your_message}</code>
+            <code>GET https://madcoderfraudapi.azurewebsites.net/api/v1/{apiKey}/check?message={your_message}</code>
             <h3>Example Request</h3>
-            <code>GET http://localhost:8000/api/v1/YOUR_API_KEY/check?message=Congratulations!%20You%27ve%20won%20a%20free%20vacation.%20Claim%20now%20by%20providing%20your%20personal%20details.</code>
+            <code>GET https://madcoderfraudapi.azurewebsites.net/api/v1/YOUR_API_KEY/check?message=Congratulations!%20You%27ve%20won%20a%20free%20vacation.%20Claim%20now%20by%20providing%20your%20personal%20details.</code>
             <h3>Response</h3>
             <code>
                 {
@@ -248,7 +248,7 @@
             <p>Below are examples of how to connect to the API using different programming languages:</p>
             <h3>JavaScript</h3>
             <code>
-                <pre><code>fetch('http://localhost:8000/api/v1/YOUR_API_KEY/check?message=YOUR_MESSAGE')
+                <pre><code>fetch('https://madcoderfraudapi.azurewebsites.net/api/v1/YOUR_API_KEY/check?message=YOUR_MESSAGE')
     .then(response => response.json())
     .then(data => console.log(data))
     .catch(error => console.error('Error:', error));</code></pre>
@@ -258,7 +258,7 @@
                 <pre><code>import requests
 
 response = requests.get(
-    'http://localhost:8000/api/v1/YOUR_API_KEY/check',
+    'https://madcoderfraudapi.azurewebsites.net/api/v1/YOUR_API_KEY/check',
     params={'message': 'YOUR_MESSAGE'}
 )
 print(response.json())</code></pre>
@@ -274,7 +274,7 @@ public class APICall {
     public static void main(String[] args) throws IOException {
         String apiKey = "YOUR_API_KEY";
         String message = "YOUR_MESSAGE";
-        URL url = new URL("http://localhost:8000/api/v1/" + apiKey + "/check?message=" + message);
+        URL url = new URL("https://madcoderfraudapi.azurewebsites.net/api/v1/" + apiKey + "/check?message=" + message);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod("GET");
 
