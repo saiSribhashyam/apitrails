@@ -61,7 +61,7 @@ def check_api_key(req, api_key):
 
         # Call the closed-source service
         response = requests.get(
-            'https://mcfraud.onrender.com/',
+            'https://mcfraud-agc2eegceshphydj.southindia-01.azurewebsites.net/',
             params={'message': message}
         )
 
